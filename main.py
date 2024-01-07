@@ -4,6 +4,10 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 import hashlib
 
+def encode(input: str) -> str:
+    encoded = hashlib.sha256(input.encode()).hexdigest()
+    return encoded
+
 class Protector(App):
     def build(self):
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
@@ -29,10 +33,12 @@ class Protector(App):
     def _encode(self, password: str, input: str):
         # Simple encoding using SHA-256 hashing
         # Concatenate password and input, then hash
+        assert encode(password) == "483029d526219f816e8e8f6a9de07b422633dba180ffc26faac22862a017519f"
+
         password = password.split()[0]
         input = input.split()[0]
         combined = password + input
-        encoded = hashlib.sha256(combined.encode()).hexdigest()
+        encoded = encode(combined)
 
         if len(input)%3==0:
             encoded = encoded[-10:]
