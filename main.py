@@ -33,7 +33,8 @@ class Protector(App):
     def _encode(self, password: str, input: str):
         # Simple encoding using SHA-256 hashing
         # Concatenate password and input, then hash
-        assert encode(password) == "483029d526219f816e8e8f6a9de07b422633dba180ffc26faac22862a017519f"
+        if encode(password) != "483029d526219f816e8e8f6a9de07b422633dba180ffc26faac22862a017519f":
+            raise Exception()
 
         password = password.split()[0]
         input = input.split()[0]
